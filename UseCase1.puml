@@ -1,14 +1,22 @@
-@startuml
+@startuml 
+
 left to right direction
 
 actor "Użytkownik" as User
-actor "Administrator" as Admin
+actor "Administrator Systemu" as Admin
 
-package "Przypadki użycia" {
-    usecase "Zakup biletu" as UC_Bilet
-    usecase "Zdalne zarządzanie oprogramowaniem\nbiletomatu" as UC_Zarządzanie
+package "Przypadku użycia" {
+usecase "Wyświetlenie listy raportów" as UC1
+usecase "Konfiguracja oferty biletomatu" as UC2
+usecase "Wyświetlenie oferty biletomatu" as UC3
+usecase "Wybór języka" as UC4
+usecase "Zakup biletu" as UC_Bilet
+usecase "Zdalne zarządzanie oprogramowaniem\nbiletomatu" as UC_Zarządzanie
 }
 
+Admin -> UC1
+User -> UC3
+Admin -> UC2
+User -> UC4
 User --> UC_Bilet
 Admin --> UC_Zarządzanie
-@enduml
