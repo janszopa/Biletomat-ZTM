@@ -1,0 +1,14 @@
+@startuml
+left to right direction
+
+actor "Użytkownik" as User
+actor "Administrator" as Admin
+
+package "Przypadki użycia" {
+    usecase "Zakup biletu" as UC_Bilet
+    usecase "Zdalne zarządzanie oprogramowaniem\nbiletomatu" as UC_Zarządzanie
+}
+
+User --> UC_Bilet
+Admin --> UC_Zarządzanie
+@enduml
