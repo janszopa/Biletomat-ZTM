@@ -2,7 +2,7 @@
 left to right direction
 
 actor "Użytkownik" as User
-actor "Administrator" as Admin
+actor "Administrator Systemu" as Admin
 
 package "Przypadki użycia" {
     usecase "Zakup biletu" as UC_Bilet
