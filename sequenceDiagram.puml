@@ -1,3 +1,4 @@
+@startuml
 actor User as "Użytkownik"
 actor Admin as "Administrator Systemu"
 participant TicketMachine as "Biletomat"
@@ -13,14 +14,15 @@ TicketMachine --> User
 
 == Wybór języka ==
 
-User -> TicketMachine : wybierzJezyk()
-TicketMachine -> TicketMachine : zmienJezyk()
+User -> TicketMachine : wybierzJezyk(jezyk)
+TicketMachine -> TicketMachine : zmienJezyk(jezyk)
 TicketMachine --> User
 
-== Konfiguracja oferty biletomatu ==
+== Konfiguracja oferty biletomatu (przez administratora) ==
 
 Admin -> TicketMachine : wprowadzOferte()
-TicketMachine -> TicketSystem : ZaaktualizujOferte()
-TicketSystem --> TicketMachine : :bool
+TicketMachine -> TicketSystem : zaaktualizujOferte()
+TicketSystem --> TicketMachine : :odpowiedz
+TicketMachine -> TicketMachine : wyswietlKomunikat(odpowiedz)
 TicketMachine --> Admin
 @enduml
