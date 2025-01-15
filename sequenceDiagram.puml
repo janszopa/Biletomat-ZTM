@@ -1,0 +1,26 @@
+actor User as "Użytkownik"
+actor Admin as "Administrator Systemu"
+participant TicketMachine as "Biletomat"
+participant TicketSystem as "System Biletowy"
+
+== Wyświetlenie oferty biletomatu ==
+
+User -> TicketMachine : naciśniętoStart()
+TicketMachine -> TicketSystem : pobierzOfertę()
+TicketSystem --> TicketMachine : :listaOfert
+TicketMachine -> TicketMachine : Wyświetl(listaOfert)
+TicketMachine --> User
+
+== Wybór języka ==
+
+User -> TicketMachine : wybierzJezyk()
+TicketMachine -> TicketMachine : zmienJezyk()
+TicketMachine --> User
+
+== Konfiguracja oferty biletomatu ==
+
+Admin -> TicketMachine : wprowadzOferte()
+TicketMachine -> TicketSystem : ZaaktualizujOferte()
+TicketSystem --> TicketMachine : :bool
+TicketMachine --> Admin
+@enduml
