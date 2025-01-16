@@ -5,6 +5,44 @@ participant TicketMachine as "Biletomat"
 participant TicketSystem as "System Biletowy"
 participant PaymentSystem as "System transakcyjny"
 
+
+
+== Zdalna aktualizacja oprogramowania biletomatu ==
+
+Admin -> TicketSystem : zaakutlizuj(aktualizacja)
+TicketSystem -> TicketMachine : sprawdźWersję()
+TicketMachine --> TicketSystem : sprawdzonaWersja
+TicketSystem -> TicketMachine : załadujNowąWersję(aktualizacja)
+TicketMachine --> TicketSystem : zaktualizowaneOprogramowanie
+TicketSystem --> Admin : PotwierdzenieAktualizacji
+
+== Zakup biletu ==
+
+group ref [Wyświetlnie oferty biletomatu]
+end
+User -> TicketMachine : wybierzRodzajBiletu(bilet)
+TicketMachine -> User
+User -> TicketMachine : wybierzMetodęPłatności(metoda)
+TicketMachine -> User
+alt Płatność kartą
+    User -> PaymentSystem : autoryzujPłatność(karta)
+    PaymentSystem --> TicketMachine : PotwierdzeniePłatności
+end
+alt Płatność gotówką
+    User -> TicketMachine : wrzućGotówkę(kwota)
+    TicketMachine -> TicketMachine : SprawdźResztę(kwota)
+    TicketMachine -> TicketMachine : WydajResztę(reszta)
+end
+alt Płatność NFC/BLIK
+    User -> PaymentSystem : autoryzujPłatność(NFC/BLIK)
+    PaymentSystem --> TicketMachine : PotwierdzeniePłatności
+end
+
+TicketMachine -> TicketSystem : zarejestrujSprzedaż()
+TicketSystem --> TicketMachine : PotwierdzenieSprzedaży
+TicketSystem -> TicketSystem : zarejestrujRaport(sprzedaży)
+TicketMachine --> User : Wydrukuj Bilet
+
 == Wyświetlenie oferty biletomatu ==
 
 User -> TicketMachine : naciśniętoStart()
@@ -30,6 +68,5 @@ TicketSystem --> Admin
 Admin -> TicketSystem : wyswietlRaporty()
 TicketSystem -> TicketSystem : wyswietlRaport()
 TicketSystem --> Admin 
-
 
 @enduml
