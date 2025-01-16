@@ -6,6 +6,7 @@ participant TicketSystem as "System Biletowy"
 participant PaymentSystem as "System transakcyjny"
 
 
+
 == Zdalna aktualizacja oprogramowania biletomatu ==
 
 Admin -> TicketSystem : zaakutlizuj(aktualizacja)
@@ -41,4 +42,31 @@ TicketMachine -> TicketSystem : zarejestrujSprzedaż()
 TicketSystem --> TicketMachine : PotwierdzenieSprzedaży
 TicketSystem -> TicketSystem : zarejestrujRaport(sprzedaży)
 TicketMachine --> User : Wydrukuj Bilet
+
+== Wyświetlenie oferty biletomatu ==
+
+User -> TicketMachine : naciśniętoStart()
+TicketMachine -> TicketSystem : pobierzOfertę()
+TicketSystem --> TicketMachine : :listaOfert
+TicketMachine -> TicketMachine : Wyświetl(listaOfert)
+TicketMachine --> User
+
+== Wybór języka ==
+
+User -> TicketMachine : wybierzJezyk(jezyk)
+TicketMachine -> TicketMachine : zmienJezyk(jezyk)
+TicketMachine --> User
+
+== Konfiguracja oferty biletomatu ==
+
+Admin -> TicketSystem : wprowadzOferte(oferta)
+TicketSystem -> TicketSystem : zaaktualizujOferte(oferta)
+TicketSystem --> Admin
+
+== Wyświetlenie raportów ==
+
+Admin -> TicketSystem : wyswietlRaporty()
+TicketSystem -> TicketSystem : wyswietlRaport()
+TicketSystem --> Admin 
+
 @enduml
