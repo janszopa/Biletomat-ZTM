@@ -1,0 +1,35 @@
+@startuml
+actor User as "Użytkownik"
+actor Admin as "Administrator Systemu"
+participant TicketMachine as "Biletomat"
+participant TicketSystem as "System Biletowy"
+participant PaymentSystem as "System transakcyjny"
+
+== Wyświetlenie oferty biletomatu ==
+
+User -> TicketMachine : naciśniętoStart()
+TicketMachine -> TicketSystem : pobierzOfertę()
+TicketSystem --> TicketMachine : :listaOfert
+TicketMachine -> TicketMachine : Wyświetl(listaOfert)
+TicketMachine --> User
+
+== Wybór języka ==
+
+User -> TicketMachine : wybierzJezyk(jezyk)
+TicketMachine -> TicketMachine : zmienJezyk(jezyk)
+TicketMachine --> User
+
+== Konfiguracja oferty biletomatu ==
+
+Admin -> TicketSystem : wprowadzOferte(oferta)
+TicketSystem -> TicketSystem : zaaktualizujOferte(oferta)
+TicketSystem --> Admin
+
+== Wyświetlenie raportów ==
+
+Admin -> TicketSystem : wyswietlRaporty()
+TicketSystem -> TicketSystem : wyswietlRaport()
+TicketSystem --> Admin 
+
+
+@enduml
