@@ -1,0 +1,42 @@
+classDiagram
+
+namespace Controller {
+    class TicketController {
+        + wybierzRodzajBiletu(bilet: String): void
+        + wybierzMetodęPłatności(metoda: String): void
+    }
+}
+
+namespace Model {
+    class Ticket {
+        - rodzajBiletu: String
+        - metodaPłatności: String
+        + getRodzajBiletu(): String
+        + setRodzajBiletu(bilet: String): void
+        + getMetodaPłatności(): String
+        + setMetodaPłatności(metoda: String): void
+    }
+
+    class Payment {
+        + autoryzujPłatność(karta: String): boolean
+        + autoryzujPłatność(NFC/BLIK: String): boolean
+    }
+
+    class Sale {
+        + zarejestrujSprzedaż(): void
+        + zarejestrujRaport(sprzedaż: Object): void
+    }
+}
+
+namespace View {
+    class TicketView {
+        + displayBiletInfo(bilet: Ticket): void
+        + displayMetodaPłatnościInfo(metoda: String): void
+    }
+}
+
+TicketController --> Ticket
+TicketController --> Payment
+TicketController --> Sale
+TicketController --> TicketView
+TicketView --> TicketController
